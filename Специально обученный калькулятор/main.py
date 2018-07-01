@@ -20,17 +20,37 @@ def does_the_black_moon_howl():
 # И вам ещё повезло, что onelinerizer работает только со вторым питоном...
 
 
-try:
-    A = int(input('Введите значение прочности брони цели: '))
-    Z = float(input('Введите значение бронебойности оружия: ').replace(',', '.'))
-    T = float(input('Введите значение модификатора урона: ').replace(',', '.'))
-    if T not in [0.5, 1.0, 1.5, 2.0]:
-        raise ValueError
-    N = int(input('Введите кол-во кубиков: '))
-    M = int(input('Введите добавочное значение: '))
-    print('И последний вопрос...')
-    does_the_black_moon_howl()
-    print(R(P(N, M), A, Z, T))
-except ValueError:
-    print('Некорректное значение!')
-    exit()
+print('Ctrl + C for exit')
+while True:
+    try:
+        A = int(input('Введите значение прочности брони цели: '))
+        if A < 0:
+            raise ValueError
+
+        Z = float(input('Введите значение бронебойности оружия: ').replace(',', '.'))
+        if Z <= 0:
+            raise ValueError
+
+        T = float(input('Введите значение модификатора урона: ').replace(',', '.'))
+        if T not in [0.5, 1.0, 1.5, 2.0]:
+            raise ValueError
+
+        N = int(input('Введите кол-во кубиков: '))
+        if N < 1:
+            raise ValueError
+
+        M = int(input('Введите добавочное значение: '))
+        if M < 0:
+            raise ValueError
+
+        print('И последний вопрос...')
+        does_the_black_moon_howl()
+        print('Хорошо, вот ваш ответ:')
+        print(R(P(N, M), A, Z, T))
+
+        if input('Запустить калькулятор ещё раз? y/N ').lower() != 'y':
+            break
+
+    except ValueError:
+        print('Некорректное значение!')
+        break
